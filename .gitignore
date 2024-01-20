@@ -1,2 +1,6 @@
 MieszczanskaGodziny.py
 Rachunki.py
+__pycache__
+test.py
+-Wydatki_1_0to2_0Converter.py
+-WydatkiCSV_toJSON.py
