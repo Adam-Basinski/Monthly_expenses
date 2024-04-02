@@ -881,6 +881,7 @@ class SummaryWindow(tk.Toplevel):
         ScrollBar.grid(row=0, column=1,sticky="ns", **paddings, **ipaddings)
 
 if __name__ == "__main__":
-    App = PathOpenerApp()
+    App = PathOpenerApp(environ["EXPENSES_PATH"])
     App.mainloop()
     print(App.filename)
+    x = input()
