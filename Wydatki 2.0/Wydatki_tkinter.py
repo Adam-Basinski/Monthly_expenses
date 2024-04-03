@@ -522,10 +522,18 @@ class ExpensesApp(tk.Tk):
         DeleteButton.pack(side=tk.LEFT, **paddings)
 
         # Button - Save and close
-        SaveButton = ttk.Button(
+        SaveCloseButton = ttk.Button(
             master=ButtonFrame,
             text="Save and close",
             command=self.save_and_close,
+        )
+        SaveCloseButton.pack(side=tk.RIGHT, **paddings)
+
+        # Button - Save
+        SaveButton = ttk.Button(
+            master=ButtonFrame,
+            text="Save",
+            command=self.save_button,
         )
         SaveButton.pack(side=tk.RIGHT, **paddings)
 
@@ -577,11 +585,11 @@ class ExpensesApp(tk.Tk):
             # There are no restrictions on Amount entry. 
             # The value is rounded to 2 decimals.
             try:
-                EntryDataList[1] = round(float(EntryDataList[1]), 2)
+                EntryDataList[1] = round(float(EntryDataList[1].replace(',', '.')), 2)
             except ValueError:
                 showerror(
                     title="Amount error",
-                    message=f"Wrong Amount format! Use only numbers with dot (Comma won't work.)",
+                    message=f"Wrong Amount format!",
                 )
                 EntryDataList.clear()
             
@@ -659,7 +667,23 @@ class ExpensesApp(tk.Tk):
             )
 
 
-    def save_and_close(self):
+    def save_button(self) -> None:
+        """ Save data and show message, that data is saved. """
+        Wydatki_DataOperations.saveFile(
+            self.FileUser,
+            self.monthOfInterest,
+            self.yearOfInterest,
+            self.expensesDF,
+            environ["EXPENSES_PATH"]
+        )
+        showinfo(
+            title="Saved",
+            message="Data saved!"
+            )
+
+
+    def save_and_close_button(self) -> None:
+        """ Save data and close app. """
         Wydatki_DataOperations.saveFile(
             self.FileUser,
             self.monthOfInterest,
